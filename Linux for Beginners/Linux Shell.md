@@ -2,6 +2,8 @@ Agendas
 
 1. [Introduction to Shell](#introduction-to-shell)
 2. [Basic Linux Commands](#basic-linux-commands)
+3. [Command Line Help](#command-line-help)
+4. [Bash Shell](#bash-shell)
 
 ### Introduction to Shell
 
@@ -29,13 +31,13 @@ uptime
 To determine a command is internal or external, use **`type`** command
 
 ```
-$ type echo
+type echo
 echo is a shell built-in 
 ```
 
 ```
-$ type mv
-mv is a hashed (/bin/mv)
+type mv
+mv is a hashed (/bin/mv)        # file type command
 ```
 _Which symbol represents a user’s home directory in Linux?_
 
@@ -56,6 +58,11 @@ command
 
 ### Basic Linux Commands
 
+Check home directory of current user 
+```
+echo $HOME
+```
+
 To recursively created directories
 
 ```
@@ -74,7 +81,7 @@ To copy a directory recursively
 cp -r <sourcepath> <destinationPath> command
 ```
 
-To add a content to a file with cat(redirect)
+To add a content to a file with cat (redirect)
 
 ```
 cat > /path/to/<filename>
@@ -94,3 +101,100 @@ To list all the files form oldest to newest
 ```
 ls -ltr
 ```
+
+
+### Command Line Help
+
+First command is **`whatis`** , this command will displays a one line description of a command does
+
+**`Syntax: whatis <command>`**
+```
+whatis date
+```
+
+Most of the commands internal or external come bundled with **`man pages`** which provides information about the command in detail (with examples, usecases and with command options)
+
+**`Syntax: man <command>`**
+```
+man date
+```
+Several commands will provide **`-h`** or **`--help`** to provide users with the options and usecases available in a command
+```
+date -h
+date --help
+```
+
+To search through the man page names and descriptions for instances of the keyword use **`apropos`**. This is useful if you want to look for all _possible commands within the system_ that contains the **`specifc keyword`**
+
+**`Syntax: apropos <keyword>`**
+
+```
+apropos modpr
+```
+
+_Q: In the command `echo Welcome`, what does the word `Welcome` represent with respect to the command?_
+
+argument
+
+_Q: To check the home directory for a particular user say **bob**_
+
+```
+grep bob /etc/passwd | cut -d ":" -f6
+```
+
+### Bash Shell
+
+There are different types of shells in linux, some of the popular ones are below
+
+- Bourne Shell (sh)
+- C Shell (csh or tsh)
+- Korn Shell (ksh)
+- Z Shell (zsh)
+- _Bourne again shell (Bash)_
+
+
+To check which shell being used
+
+```
+echo $SHELL
+```
+To see a list of all environment variables
+```
+env
+```
+
+To **`change the default shell`**. Use the command **`chsh`**, you will be prompted for the password and following that _input the name of the new shell_. You have to login into new terminal session to see this change though.
+```
+chsh
+```
+
+**Bash Shell Features**
+
+1. Bash supports command _auto-completion_
+2. Can set _custom aliases for the actual commands_
+
+```
+date
+alias dt=date
+dt
+```
+
+3. Use the **`history`** command to list the previous run _commands that you ran earlier_
+
+
+**Bash Environment Variables**
+
+To set an environment variable we can use the **`export`** command. To make the value carry forward to any other process.
+```
+export OFFICE=caleston
+```
+
+To **`persistently`** set an environment variable over subsequent login or a reboot add them to the **`~/.profile`** or **`~/.pam_environment`** in the users home directory
+
+```
+echo "export OFFICE=caleston" >> ~/.profile (or)
+echo "export OFFICE=caleston" >> ~/.pam_environment
+```
+
+
+**Path Variable**
