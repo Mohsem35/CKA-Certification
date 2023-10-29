@@ -3,8 +3,6 @@ Agendas
 
 1. [Linux Core Concepts](#linux-core-concepts)
 2. [Linux Boot Sequence](#linux-boot-sequence)
-3. [Run Levels](#run-levels)
-
 
 ### Linux Core Concepts
 
@@ -22,7 +20,7 @@ The Kernel is responsible for **4 major tasks**
 1. **Memory** Management
 2. **Process** Management
 3. Device **Drivers**
-4. **System calls and Security**
+4. **System calls(API) and Security**
 
 
 
@@ -192,61 +190,42 @@ lrwxrwxrwx 1 root root 20 Mar 27  2023 /sbin/init -> /lib/systemd/systemd
 ```
 
 
-### Run Levels
 
 
-#### Systemd Targets (Run Levels)
-
-We can setup the server to boot either into graphical mode or non-graphical mode. _Linux can run in multiple modes_ and these **modes** are set by something called **`runlevel`**
-
-- The operation mode which provide a **graphical** interface is called **`runlevel 5`**
-- The operation mode which provide a **non-graphical** mode is called **`runlevel 3`**
 
 
-To see the **operation mode** run in the system
+
+
+#### Questions
+
+_1. What is the **`init process`** used by this system?_
+
 ```shell
-# command
-runlevel
-
-# output
-N 5
+sudo ls -l /sbin/init
 ```
 
-In the boot process section, we saw that the **`systemd`** is used as the init process in most new linux distributions suchs as _Ubuntu 22.04_
-
-In **`systemd`**, **runlevels** are called as **targets**
-
+_2. What is the **`default systemd target`** set in this system?_
 
 ```shell
-# command
 systemctl get-default
-
-# output
-graphical.target
 ```
 
-- Now that we are familiar with runlevels in systemd target unit. Lets now take a look, how we can change from **graphical to non-graphical** or vice-versa from a shell.
+_3. Now, change the target to **`multi-user.target`**_
 
-To change the default target, we can make use of 
+```
+sudo systemctl set-default multi-user.target
+```
+
+_4. You are asked to install a new **`third-party IDE`** (integrated development environment ) in the system.Which directory is the recommended choice for the installation?_
+
+**`/opt`**
+
+_5. Which directory contains the files related to the block devices that can be seen when running the **`lsblk`** command?_
+
+**`/dev`**
+
+_6. What is the name of the vendor for the Ethernet Controller used in this system?_
 
 ```shell
-# example
-systemctl set-target <desired target name goes here as an argument>
-```
-
-```shell
-# converts from graphical to non-graphical mode
-systemctl set-default multi-user.target 
-```
-
-```
-The complete list of runlevels and the corresponding systemd targets can be seen below:
-
-runlevel 0 -> poweroff.target
-runlevel 1 -> rescue.target
-runlevel 2 -> multi-user.target
-runlevel 3 -> multi-user.target
-runlevel 4 -> multi-user.target
-runlevel 5 -> graphical.target
-runlevel 6 -> reboot.target
+lspci
 ```
