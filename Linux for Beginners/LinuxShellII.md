@@ -96,4 +96,3 @@ zcat hostfile.txt.bz2
 zcat hostfile.txt.gz
 zcat hostfile.txt.xz
 ```
-
