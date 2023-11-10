@@ -31,8 +31,7 @@ ping db
 
 #### DNS Resolution
 
-
-
+<img width="800" alt="Screenshot 2023-11-10 at 11 03 22 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/6a7fd81e-9a55-447c-b00c-8d2c4fa4b837">
 
 **`/etc/resolv.conf`** file contains **information about the DNS servers** that the system should use to resolve domain names to IP addresses. Typically, it includes the IP addresses of DNS servers that the system should **query** when trying to resolve domain names
 
@@ -63,17 +62,18 @@ hosts:          files dns
 networks:       files
 ```
 
+<img width="800" alt="Screenshot 2023-11-10 at 11 17 37 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/050abd80-7bb9-4683-837e-7168a8f14e4a">
+
 **বাহিরের দুনিয়ার কোন server(facebook, chatgpt) use করতে চাইলে**, DNS server এর configuration ফাইলের নিচে **`Forward All to 8.8.8.8`** লাইন add করলেই হবে 
 
 
 ### Domain Names 
 
+![root](https://github.com/Mohsem35/CKA-Certification/assets/58659448/ece1aabb-e23d-40b0-9e2f-9dd92d554167)
 
+`maps.google.com` is a **subdomain** of `googl.com` 
 
 ### Record Types
-
-maps.google.com is a subdomain of googl.com 
-
 
 In the context of domain names and the Domain Name System (DNS), various types of DNS records exist to serve different purposes. DNS records are used to translate human-readable domain names into IP addresses and provide other information related to domain configuration. Here are some common DNS record types:
 
@@ -84,9 +84,7 @@ In the context of domain names and the Domain Name System (DNS), various types o
 - **`CNAME (Canonical Name)`** Record: Creates an _alias or nickname for a domain_. It is often used to point one domain to another.
 
 
-
-
-To test the DNS resolution you can use **`nslookup`**, **`traceroute`**, **`dig`** command, this will query a hostname from a DNS Server.
+- To test the DNS resolution you can use **`nslookup`**, **`traceroute`**, **`dig`** command, this will query a hostname from a DNS Server.
 
 ```shell
 nslookup www.google.com
