@@ -1,6 +1,13 @@
+
+Agendas
+
+1. [DNS](#dns)
+2. [Domain Names](#domain-names)
+3. [Record Types](#record-types)
+
+
+
 ### DNS
-
-
 
 The domain name system is a distributed way to share **name-to-IP** associations _instead of requiring each computer to synchronize a hosts file_. A name server publishes the IP address for a domain and provides a single location to update when an IP changes
 
@@ -91,3 +98,23 @@ nslookup www.google.com
 traceroute www.google.com
 dig www.google.com
 ```
+
+
+
+#### Questions
+
+_1. What is the IP address of the DNS Server used in this system?_
+
+`cat /etc/resolv.conf`
+
+_2.Which file is responsible for host file-based DNS resolution?_
+
+`/etc/hosts`
+
+_3. Change the DNS Server to google's DNS which is 8.8.8.8_
+
+change the nameserver IP to 8.8.8.8 at `/etc/resolv.conf`
+
+_4. Which order is used currently to resolve an IP address in the system?_
+
+Check `hosts` line of the `nsswitch.conf` file 
