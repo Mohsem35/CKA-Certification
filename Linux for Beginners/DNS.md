@@ -3,7 +3,7 @@ Agendas
 
 1. [DNS](#dns)
 2. [Domain Names](#domain-names)
-3. [Record Types](#record-types)
+3. [Record Types](#record-types )
 
 
 
