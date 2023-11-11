@@ -3,6 +3,7 @@ Agendas
 1. [Switch](#switch)
 2. [Router](#router)
 3. [Default Gateway](#default-gateway)
+4. [Troubleshooting Network](#troubleshooting-network)
 
 ### Switch
 
@@ -86,3 +87,89 @@ or
 
 ip route add 0.0.0.0 via <own network gateway ip>
 ``` 
+
+
+### Troubleshooting Network
+
+
+**From Cline side**
+
+_1. Check if the primary interface is up_
+
+```shell
+ip link
+```
+
+_2. Check if the hostname is resolved to ip addresses. Run **`nslookup`** command against the host name. **`nslookup`** command reaches out to the DNS server._
+
+```shell
+nslook up caleston-repo-01
+```
+
+_3. Ping remote server for response_
+
+_4. Run the **`traceroute`** command. This will show us the number of hops or devices between the source and repo server_
+
+**From Server side**
+
+_5. Check is port is runnig_
+```shell
+netstat -an | grep 80 | grep -i LISTEN
+```
+_6. Check if the interface is UP_
+
+```shell
+ip link
+```
+UP command
+
+```shell
+ip link set dev <server interface name> up
+```
+
+
+#### Questions
+
+_1. Inspect the interface `eth0` on devapp01, is it `UP`?_
+
+```shell
+ip link
+``` 
+look at the **status** of the interface starting with `eth0`
+
+_2. Bring up the `eth0` interface_
+
+```shell
+sudo ip link set dev eth0 up
+```
+
+_3. While we are at it, there is also a missing `default route` on the server `devapp01.` Add the default route via `eth0` gateway._
+
+To add the default route via eth0 gateway, run the following command: 
+
+_1st: Find out the dafault fateway ip_
+
+```shell
+route -n
+
+# output
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+172.16.238.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
+172.16.239.0    0.0.0.0         255.255.255.0   U     0      0        0 eth1
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 eth2
+```
+_2nd: Add route_
+
+```
+sudo ip r add default via 172.16.238.1
+```
+
+_Extras:_
+
+To delete the default route using the ip r command, you can use the following command:
+
+```shell
+sudo ip r del default
+```
+This command **removes the default route from the routing table**. Make sure to run the command with appropriate permissions, such as using sudo, to have the necessary privileges to modify the routing table.
