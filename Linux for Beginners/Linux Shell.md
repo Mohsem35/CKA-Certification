@@ -17,7 +17,7 @@ Command line interface (**`CLI`**) will enable you to effectively work on linux 
 Linux shell is a program that allows **`text-based interaction`** between user and OS. The interaction is carried out by _typing commands into the interface_
 
 
-```
+```shell
 # how long a system has been running for since the last reboot along with the other information
 uptime
 ```
@@ -29,14 +29,14 @@ uptime
 2. _External Commands_: External commands on the other hand are binary programs or scripts which are usually located in distinct files in the system. `mv`, `date`, `uptime`, `cp` e.t.c.
 
 
-To determine a command is internal or external, use **`type`** command
+- To determine a command is internal or external, use **`type`** command
 
-```
+```shell
 type echo
 echo is a shell built-in 
 ```
 
-```
+```shell
 type mv
 mv is a hashed (/bin/mv)        # file type command
 ```
@@ -44,14 +44,14 @@ mv is a hashed (/bin/mv)        # file type command
 
 ### Basic Linux Commands
 
-Check home directory of current user 
-```
+- Check home directory of current user 
+```shell
 echo $HOME
 ```
 
-To recursively created directories
+- To recursively created directories
 
-```
+```shell
 mkdir -p <directory_name>/<sub_directory_of_name>
 ```
 
@@ -62,14 +62,14 @@ _Absolute Path_: An absolute path is defined as specifying the location of a fil
 _Relative Path_: Relative path is defined as the path related to the present working directly(**`pwd`**).
 
 
-To copy a directory recursively
-```
+```shell
+# to copy a directory recursively
 cp -r <sourcepath> <destinationPath> command
 ```
 
-To add a content to a file with cat (redirect)
 
-```
+```shell
+# to add a content to a file with cat (redirect)
 cat > /path/to/<filename>
 ```
 
@@ -77,14 +77,14 @@ cat > /path/to/<filename>
 
 The **`tail`** command is used to display the last few lines of a text file
 
-```
+```shell
 tail -n 10 -f filename
 ```
 
 
 To list all the files form oldest to newest
 
-```
+```shell
 ls -ltr
 ```
 
@@ -94,18 +94,18 @@ ls -ltr
 First command is **`whatis`** , this command will displays a one line description of a command does
 
 **`Syntax: whatis <command>`**
-```
+```shell
 whatis date
 ```
 
 Most of the commands internal or external come bundled with **`man pages`** which provides information about the command in detail (with examples, usecases and with command options)
 
 **`Syntax: man <command>`**
-```
+```shell
 man date
 ```
 Several commands will provide **`-h`** or **`--help`** to provide users with the options and usecases available in a command
-```
+```shell
 date -h
 date --help
 ```
@@ -114,7 +114,7 @@ To search through the man page names and descriptions for instances of the keywo
 
 **`Syntax: apropos <keyword>`**
 
-```
+```shell
 apropos modpr
 ```
 
@@ -146,7 +146,7 @@ echo $SHELL
 ```
 
 To **`change the default shell`**. Use the command **`chsh`**, you will be prompted for the password and following that _input the name of the new shell_. You have to login into new terminal session to see this change though.
-```
+```shell
 chsh
 ```
 
@@ -173,7 +173,7 @@ env
 ```
 
 To set an environment variable we can use the **`export`** command. To make the value carry forward to any other process.
-```
+```shell
 export OFFICE=caleston
 ```
 
@@ -198,7 +198,7 @@ echo $PATH
 To check if the **`location`** of the command can be **`identified`**
 
 **`Syntax: which <command>`**
-```
+```shell
 which obs-studio
 ```
 
@@ -267,7 +267,7 @@ chsh -s /bin/sh bob
 
 _6. What is the value of the environment variable TERM_
 
-```
+```shell
 echo $TERM
 ```
 
