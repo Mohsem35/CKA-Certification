@@ -222,6 +222,9 @@ ls -l template_test.sql
 
 #### Modifying file permissions
 
+<img width="550" alt="Screenshot 2023-12-01 at 6 16 07 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/a2276157-0d74-4491-bbba-2ff096f3f2f3">
+
+
 ফাইলের permission change করা, আর ownership change করা ২ টা ২ জিনিষ 
 
 Use `chmod` command to modify the file permissions.
