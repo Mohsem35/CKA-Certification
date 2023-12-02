@@ -164,7 +164,7 @@ sudo iptables -D INPUT 3
 ```
 
 
-`-I` inserts the rule to the top of the chain instead of the buttom. This will add the accept rule to the first position in the chain
+> `-I` inserts the rule to the top of the chain instead of the buttom. This will add the accept rule to the first position in the chain. মানে rules টা সবার উপড়ে add হবে `I` দিয়ে commmand execute করলে, normally `A` দিয়ে append করলে rules গুলো সবার শেষে যুক্ত হয়  
 
 #### OTHERS
 
@@ -195,3 +195,24 @@ next rule হছে, DB server সব রকমের outbound traffic DROP ক�
 iptables -A INPUT -p tcp --dport 5432 -j DROP
 ```
 
+#### CRONJOB
+
+```shell
+crontab -e
+```
+
+```shell
+crontab -l
+```
+
+_Q: The script /usr/local/bin/system-debugger.sh was incorrectly scheduled. It should run every half hour at minute 0 and minute 30_
+
+Example: 09:00, 09:30, 10:00, 10:30, 11:00, 11:30……so on every half hour.
+
+
+
+```shell
+# use Step values for the minute column = */30 OR
+
+*/30 * * * * /usr/local/bin/system-debugger.sh
+```

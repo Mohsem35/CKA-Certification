@@ -289,4 +289,3 @@ PS1='[\d]\u@\h:\w\$'
 or
 echo 'PS1=[\d]\u@\h:\w$' >> ~/.profile
 ```
-

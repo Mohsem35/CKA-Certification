@@ -1,5 +1,7 @@
 ### Run Levels
 
+Run levels in Linux refer to **different operating modes** or states in which a **system can operate**. Each run level represents a specific configuration of system services and processes.
+
 
 #### Systemd Targets (Run Levels)
 
