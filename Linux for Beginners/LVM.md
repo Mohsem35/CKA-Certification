@@ -143,6 +143,7 @@ Filesystem Size Used Avail Use% Mounted on
 /dev/mapper/caleston_vg-vol1 976M 1.3M 908M 1% /mnt/vol1
 ```
 
+
 11th step: Now to **resize the file system** use **`resize2fs`** command
 
 ```shell
@@ -200,8 +201,7 @@ and inspect the size of disks. Each disk is of size 1G
 _Q4: Create PV's using `/dev/vdb` and `/dev/vdc`_
 
 ```shell
-sudo pvcreate /dev/vdb 
-sudo pvcreate /dev/vdc
+sudo pvcreate /dev/vdb /dev/vdc
 ```
 
 _Q5: Create a new `volume group` called `caleston_vg` using the newly created `PV's`_
@@ -210,13 +210,46 @@ _Q5: Create a new `volume group` called `caleston_vg` using the newly created `P
 sudo vgcreate caleston_vg /dev/vdb /dev/vdc
 ```
 
-_Q6: Create a new logical volume called data from the caleston_vg._
+_Q6: Create a new logical volume called `data` from the `caleston_vg`._
 
 _Size of the volume should be 1G_
 
 ```shell
 sudo lvcreate -L 1G -n data caleston_vg
 ```
+```
+root@caleston-lp10:~# lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+vda                    252:0    0   10G  0 disk 
+└─vda1                 252:1    0   10G  0 part 
+  ├─vagrant--vg-root   253:0    0    9G  0 lvm  /
+  └─vagrant--vg-swap_1 253:1    0  980M  0 lvm  [SWAP]
+vdb                    252:16   0    1G  0 disk 
+└─caleston_vg-data     253:2    0    1G  0 lvm  
+vdc                    252:32   0    1G  0 disk 
+└─caleston_vg-data     253:2    0    1G  0 lvm  
+```
+```
+root@caleston-lp10:~# df -hT
+Filesystem                   Type      Size  Used Avail Use% Mounted on
+udev                         devtmpfs  461M     0  461M   0% /dev
+tmpfs                        tmpfs      99M  5.3M   94M   6% /run
+/dev/mapper/vagrant--vg-root ext4      8.9G  1.5G  7.0G  18% /
+tmpfs                        tmpfs     493M     0  493M   0% /dev/shm
+tmpfs                        tmpfs     5.0M     0  5.0M   0% /run/lock
+tmpfs                        tmpfs     493M     0  493M   0% /sys/fs/cgroup
+tmpfs                        tmpfs      99M     0   99M   0% /run/user/1002
+```
+
+```s
+root@caleston-lp10:~# lvs
+  LV     VG          Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  data   caleston_vg -wi-a-----   1.00g                                                    
+  root   vagrant-vg  -wi-ao----  <9.04g                                                    
+  swap_1 vagrant-vg  -wi-ao---- 980.00m 
+```
+
+
 
 _Q7: Create an `ext4` filesystem on this logical volume and mount it at `/mnt/media`_
 
@@ -237,3 +270,4 @@ sudo resize2fs  /dev/mapper/caleston_vg-data
 
 
 
+প্রথমে physical volume, তারপর volume group এবং সবশেষে logical volume

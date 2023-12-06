@@ -258,3 +258,47 @@ _Q: Read the file `/usr/share/man/man1/tail.1.gz` and without extracting redirec
 ```shell
 zcat /usr/share/man/man1/tail.1.gz > /home/bob/pipes
 ```
+
+
+
+Well done! Now, for the final task before the client presentation.
+
+Create a new service called mercury.service with the following requirements.
+
+    Service name: - mercury.service, WorkingDirectory: - /opt/caleston-code/mercuryProject/, Command to run: /usr/bin/python3 manage.py runserver 0.0.0.0:8000.
+
+    Restart on failure and enable for multi-user.target.
+
+    Run as user mercury.
+
+    Set description: Project Mercury Web Application.
+
+
+Create the unit file under /etc/systemd/system. Once done, enable and start the mercury.service.
+
+[Unit]
+Description=Project Mercury Web Application
+
+[Service]
+ExecStart=/usr/bin/python3 manage.py runserver 0.0.0.0:8000
+Restart=on-failure
+WorkingDirectory=/opt/caleston-code/mercuryProject
+User=mercury
+
+[Install]
+WantedBy=multi-user.target
+
+
+Use the vi editor: -
+
+sudo vi /etc/systemd/system/mercury.service
+
+Insert the data.
+
+
+
+Start and enable the service and check the status as follows: -
+
+sudo systemctl enable --now mercury.service
+
+sudo systemctl status mercury.service
