@@ -5,6 +5,7 @@ sudo docker version
 ```
 docker and docker-hub দুইটা completely different জিনিষ 
 
+
 #### Basic Commands
 
 ```shell
@@ -128,6 +129,10 @@ We can map port 80 of local host to port 5000 on the docker container using the 
 docker run -p 80:5000 kodekloud/webapp
 ```
 
+
+<img width="400" alt="Screenshot 2023-12-08 at 8 16 04 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/6734fbb9-76fc-4139-8eb7-171521079968">
+
+
 ##### Docker VOLUME Mapping
 
 Data persistent in docker container. Docker container has its **own isolated file system**, and any changes to any files happen within within the container. 
@@ -135,6 +140,8 @@ Data persistent in docker container. Docker container has its **own isolated fil
 ```shell
 docker run -v /opt/datadir:/var/lib/mysql mysql
 ```
+
+<img width="396" alt="Screenshot 2023-12-08 at 8 34 19 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/b748661c-f1ad-45e6-b9dd-2bff7c3590ad">
 
 We would want to map a directory outside the container on the Docker host to a directory inside the container. It will implicitly mount the external directory to a folder inside the docker container
 
