@@ -63,9 +63,13 @@ a043d40f85fefa414254e4775f9336ea59e19e5cf597af5c554e0a35a1631118
 
 docker attach a043d
 ```
-Docker container in the detached mode by providing the **`d`** option. This will run the docker container in the **background mode**, and **you will back to your prompt immediately**. The container will continue to work in the backend.
+**`d`** option use না করলে, সেই termial foreground এ চলতে থাকবে। ফলে সেই terminal আর use করা যায় না। এই problem এর solutions হচ্ছে **`d`**
+
+Docker container in the **detached mode** by providing the **`d`** option. This will run the docker container in the **background mode**, and **you will back to your prompt immediately**. The container will continue to work in the backend.
 
 Docker Hub থেকে offical images(nginx, centos, redis...) গুলো pull হয় করলে **`library/image_name`** repository থেকে pull হয় otherwise unioffical হইলে pull হবে **`user_id/image_name`** format থেকে 
+
+**Container run** করে যদি ওই **container এর ভিতরে access** করতে চাই তবে 
 
 ```shell
 docker run -it centos bash
@@ -141,9 +145,18 @@ Data persistent in docker container. Docker container has its **own isolated fil
 docker run -v /opt/datadir:/var/lib/mysql mysql
 ```
 
+
+
 <img width="396" alt="Screenshot 2023-12-08 at 8 34 19 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/b748661c-f1ad-45e6-b9dd-2bff7c3590ad">
 
 We would want to map a directory outside the container on the Docker host to a directory inside the container. It will implicitly mount the external directory to a folder inside the docker container
+
+```shell
+# user defined with volume
+docker run -p 8080:8080 -v /root/my-jenkins-data:/var/jenkins_home -u root mysql
+```
+
+এখন যদি আমি container stop করে আবার উপরের commnad টাই run করি, data persistence থাকার কারণে same আগের container টাই পাব with credentials and volume with no change.
 
 ##### INSPECT Container
 
