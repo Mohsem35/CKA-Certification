@@ -1,8 +1,10 @@
-How to create your own image
+_Q: How to create your own image ?_ 
 
 It clould either be because you can't find  a component or a service that you want to use as part of your application on Docker Hub or you and your team decided that the application you are developing will be dockerized for ease of shipping and deployment.
 
-How to create my own image ?
+### DOCKERFILE
+
+_Q: How to create my own image ?_
 
 1. OS - Ubuntu
 2. Update apt repo
@@ -17,16 +19,17 @@ The project is hosted in github. You can look the project
 ```Dockerfile
 
 # INSTRUCTION Argument
-FROM Ubuntu
+FROM Ubuntu:20.04
 
-RUN apt update
-RUN apt install python
+RUN apt-get -y update && \
+    apt-get -y install python3 &&
+    apt-get install -y python3-pip
 
-RUN apt install python-pip
-RUN pip install flask
-RUN pip install flask-mysql
+RUN pip install flask flask-mysql
 
-COPY . /opt/source-code
+COPY app.py /opt/source-code
+
+WORKDIR /opt
 
 ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
 ```
@@ -69,3 +72,89 @@ docker history <image_name>
 All the layers built are cached by Docker। কোন একটা particular layer fail করলে, যদি আবার docker build করি তবে Docker will re-use the previous layers from cache and continue to build the remaining layers. The same is true if we add new additional steps/layers in the Dockerfile. So we don't have to wait for a docker to rebuild the entire image each time
 
 এইটা helpful যখন source-code বার বার update করা হয়  
+
+
+### ENV variables
+
+```shell
+# docker run -e <env_variable_name>=<value> <image_name>
+docker run -e APP_COLOR=blue simple-webapp-color
+```
+
+How do you find the environment varibale set on a container that's already running ?
+
+Under the `Config` section, we will find the list of **all environment variables** enlisted in the container
+```shell
+docker inspect <container_name>
+```
+```
+"Config": { "Env": [
+    'APP_COLOR=blue"
+    "LANG=C.UTF-8",
+    "GPG_KEY=0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D",
+    "PYTHON_VERSION=3.6.6",
+    "PYTHON_PIP_VERSION=18.1"
+]
+}
+```
+_Q1: Run a container named `blue-app` using image `kodekloud/simple-webapp` and set the environment variable `APP_COLOR` to `blue`. Make the application available on port `38282` on the host. The application listens on port `8080`_
+
+```shell
+docker run --name blue-app  -p 38282:8080 -e APP_COLOR=blue kodekloud/simple-webapp
+```
+
+_Q2: Deploy a `mysql` database using the`mysql` image and name it `mysql-db`. Set the database password to use `db_pass123`. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password_
+
+```shell
+docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 -d mysql:8.2
+```
+
+
+### CMD vs ENTRYPOINT
+
+CMD defines the program that will run within the container 
+
+```shell
+CMD ["nginx"]
+```
+```shell
+CMD sleep 5
+CMD ["sleep", "5"]
+```
+এই `CMD` তে আমরা command **`shell`** or **`json`** array format এ declare করতে পারি
+
+Remember, when you specify it in a `JSON array format`, the **first element in the array should be the executable**. The command and parameters should be **seperate elements** in the list by comma.
+
+**CMD হচ্ছে hard-coded approach**
+
+Append a command to the docker run command, and that way it overrides the default command specified within the image.
+
+ENTRYPOINT তে আমরা শুধু **argument(value) টা pass করব** while executing the run command
+
+ENTRYPOINT instruction is like command instruction as you can specify the program that will be run when the container starts.
+
+```
+ENTRYPOINT ["sleep"]
+```
+```shell
+docker run ubuntu-sleeper 10
+```
+
+২ টাকেই একসাথে use করতে চাইলে এবং must JSON array format এ declare করতে হবে 
+
+```shell
+ENTRYPOINT ["sleep"]
+
+CMD ["5"]
+```
+Fina command run at startup will be: `ENTRYPOINT CMD`
+
+> আগে ENTRYPOINT execute হবে, তারপর CMD execute হবে 
+
+**override** করতে চাইলে 
+```shell
+docker run --entrypoint sleep2.0 ubuntu-sleeper 10
+
+# output
+Fina command run at startup: sleep2.0 10
+```
