@@ -6,6 +6,9 @@ If we need to set up a complex application running multiple services, a better w
 
 #### Sample application - voting application
 
+<img width="450" alt="Screenshot 2023-12-12 at 12 44 04 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/701c35b3-bc32-4f86-a3b9-d6629379d495">
+
+
 When a container is dependent on another container, we have to use **container links**
 
 **`link`** is a **command line option**, which can be used to link two containers together.
@@ -59,6 +62,10 @@ cd example-voting-app/result
 docker build . -t result-app
 docker run -p 5001:80 --link db:db result-app
 ```
+<img width="450" alt="Screenshot 2023-12-12 at 1 02 55 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/04ec4918-bfd0-4262-9488-b6a7b3781326">
+
+<img width="450" alt="Screenshot 2023-12-12 at 11 08 54 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/a5c4416d-7eda-4514-868c-9a95809b7e68">
+
 
 কিন্তু আমরা এইভাবে বারবার একটা একটা করে container up না করে, `docker-compose.yml` ফাইলে সবকিছু declare করে দিতে পারি। 
 
