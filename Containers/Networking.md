@@ -1,9 +1,11 @@
 When we install Docker, it creats 3 networks automatically.
-1. Bridge
-2. None
-3. Host
+1. `Bridge`
+2. `None`
+3. `Host`
 
 **`Bridge`** is the **default network** a container gets attached to and containers get an internal IP addresses usually in the range `172.17` series. Container গুলো একে অপরের সাথে communication করতে পারে এই internal IP ধরে। 
+
+<img width="264" alt="Screenshot 2023-12-15 at 2 49 26 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/6606b81a-399a-4cca-aa3e-4ff0d22f00b3">
 
 To access these container from Outside world, map the ports of these containers to ports on the docker host
 
@@ -17,11 +19,16 @@ docker run ubuntu --network=host
 
 Another way to access the containers externally is to associate the container to the **`host network`**. This takes out any network isolation between the docker host and the docker container. 
 
+<img width="300" alt="Screenshot 2023-12-15 at 2 49 54 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/91462094-e06a-4c2a-ac86-dd3ee0c4dde3">
+
+
 এইদিকে আলাদা করে port mapping করার প্রয়োজন নাই Docker host machine এর সাথে। Direct host machine এর IP use করে container and accessable from outside world as the container uses the host's network.
 
 Meaning, একই container বার বার use করতে পারব না same port দিয়ে 
 
 `None network` এর কোন access নাই outside world এর সাথে। They run in an isolated network
+
+<img width="306" alt="Screenshot 2023-12-15 at 2 49 42 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/e375ac96-b391-4b50-863c-e6ca533b85f5">
 
 
 ### User-defined Networks
