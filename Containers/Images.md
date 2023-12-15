@@ -2,6 +2,9 @@ _Q: How to create your own image ?_
 
 It clould either be because you can't find  a component or a service that you want to use as part of your application on Docker Hub or you and your team decided that the application you are developing will be dockerized for ease of shipping and deployment.
 
+<img width="400" alt="Screenshot 2023-12-15 at 5 26 51 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/1199df19-d567-419c-a47d-98db1e813c36">
+
+
 
 ### DOCKERFILE
 
