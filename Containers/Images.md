@@ -2,6 +2,7 @@ _Q: How to create your own image ?_
 
 It clould either be because you can't find  a component or a service that you want to use as part of your application on Docker Hub or you and your team decided that the application you are developing will be dockerized for ease of shipping and deployment.
 
+
 ### DOCKERFILE
 
 _Q: How to create my own image ?_
@@ -157,4 +158,90 @@ docker run --entrypoint sleep2.0 ubuntu-sleeper 10
 
 # output
 Fina command run at startup: sleep2.0 10
+```
+
+
+### Docker Registry
+
+The registry is where all the images are stored
+
+Many cloud service providers such as AWS, Azure, or GCP provide a private registry by default when we open an account with them.
+
+- Private Registry
+
+
+```shell
+docker login private-registry.io
+```
+
+Once successful, run the application using private registry as part of the image name like this
+
+- Always log in before pulling or pushing images to a private registry
+
+```shell
+docker run private-registry.io/apps/internal-app
+```
+
+#### Deploy Priavte Registry
+
+`Docker registry` is **itself another application** an it's available as a docker image named as `registry`
+
+```shell
+# pull registry image and run the container
+docker run -d -p 5000:5000 --name registry registry:2
+```
+_1st Step: Tag image with private registry URL_
+
+```shell
+docker image tag my-image localhost:5000/my-image
+```
+_2nd Step: Push image_
+
+```shell
+docker push localhost:5000/my-image
+```
+_3rd Step: Pull image_
+
+```shell
+docker pull localhost:5000/my-image
+docker pull 192.168.56.5000/my-image
+```
+
+**Practices**
+
+_Let practice deploying a `registry server` on our own. Run a registry server with name equals to `my-registry` using `registry:2` image with host port set to `5000`, and restart policy set to `always`._
+
+_Note: Registry server is exposed on port `5000` in the image._
+
+```shell
+docker run --name my-registry -p 5000:5000 --restart=always registry:2
+```
+
+_Now its time to push some images to our registry server. Let's push two images for now .i.e. `nginx:latest` and `httpd:latest`. To check the list of images pushed , use `curl -X GET localhost:5000/v2/_catalog`_
+
+_Note: Don't forget to pull them first._
+
+```shell
+docker pull nginx:latest 
+docker image tag nginx:latest localhost:5000/nginx:latest 
+# and finally push it using 
+docker push localhost:5000/nginx:latest
+```
+```shell
+docker pull httpd:latest
+docker image tag httpd:latest localhost:5000/httpd:latest
+docker push localhost:5000/httpd:latest
+```
+
+_Now we can pull images from our `registry-server` as well. Use `docker pull [server-addr/image-name]` to pull the images that we pushed earlier._
+
+```shell
+docker pull localhost:5000/nginx
+```
+
+_Let's clean up after ourselves. Stop and remove the `my-registry` container_
+
+```shell
+docker stop my-registry
+docker rm my-registry
 ```
