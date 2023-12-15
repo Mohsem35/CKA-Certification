@@ -57,6 +57,9 @@ docker inspect <container_id>
 
 Container can reach each other using their names.
 
+<img width="650" alt="Screenshot 2023-12-15 at 3 04 47 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/749d0ded-f1a4-42fe-ab69-186bf8d043d0">
+
+
 All containers in a docker host can resolve each other with the name of the container. **Docker এর built-in DNS সার্ভার আছে**, which helps the containers to **resolve each other using the container name**.
 
 The **bulit-in DNS server** always runs at address `127.0.0.11`
