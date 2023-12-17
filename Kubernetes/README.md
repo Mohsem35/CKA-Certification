@@ -42,7 +42,7 @@ When we install K8s, we are actually installing the following components.
 
 **`Container Runtime`**: is the underlying software that is **used to run containers**. In our case, it happens to be `Docker`. 
 
-**`Kubelet`**: Kubelet is the **agent** that runs on each node in the cluster. The agent is responsible for **making sure** that the containers are running on the nodes expected
+**`Kubelet`**: Kubelet is the **agent** that runs on each node in the cluster. The agent is responsible for **making sure that the containers are running** on the nodes expected
 
 
 
@@ -74,15 +74,84 @@ kubectl run hello-minikube
 kubectl cluster-inf
 ```
 
-List all the nodes part of the cluster
+**List all the nodes** part of the cluster
 
 ```shell
 kubectl get nodes
 ```
 
+**Version check** 
 
-### Docker vs Container-D
+```shell
+kubectl version
+```
+
+```shell
+kubectl get nodes -o wide
+```
+
+### Docker vs containerD
 
 K8s was built to orchestrate Docker specifically in the beginning. So, Kubernetes was tightly coupled with Docker container. কিন্তু other containers runtime like `Rocket` এরা ও Kubernetes use করতে চাইল 
 
-So, K8s introduced an interfac 
+#### CRI
+
+So, K8s introduced an interface called **`Container Runtime Interface(CRI)`**. So, CRI allowed any vendor to work as a container runtime for Kubernetes as long as they adhere to the **OCI standards**.
+
+OCI stands for **`Open Container Initiative`** and consists of image spec and runtime spec.
+
+`imagespec` means the specification on how an image should be built.
+
+`runtimespec` defined the standards on how any container runtime should be developed.
+
+এই **দুইটা concept** মনে রেখে যে কেউ **container runtime build করতে পারে**, and that can be used by anybody to work with Kubernetes. So, that was the idea
+
+> Docker was not built to support the CRI standards, কারণ docker built হইছে CRI introduced হওয়ার আগে 
+
+Kubernetes introduced **`dockershim`** which is a hacky but temporary way to continue to support Docker outside of the container runtime interface. যেইদিকে most container runtimes work through `CRI`, Docker `CRI` ছাড়াই কাজ করে। **Docker** শুধুমাত্র একটা container runtime ই নয়, it **consists of multiple tools** that are put together.  
+
+- CLI
+- API
+- Build
+- Volumes
+- Auth
+- Security
+- Container Runtime (runc)
+- Conatainer-D (Daemon that managed runc)
+
+`containerD` is directly **compatiable with CRI** and can work directly with Kubernetes as all other runtimes.
+
+সুতরাং, containerD কে seperate runtime হিসেবে use করা যাইতে পারে from Docker
+
+`dockershim` remove করা হইছে updated docker version গুলোতে। 
+
+Docker was removed as a supported runtime from K8s.
+
+containerD is a seperate project now. containerD seeprate ভাবে install করা যাবে without having to install Docker itself. 
+
+_When Docker is not installed, then how do you run containers with just containerD?_
+
+containerD install করলে **`CTR`** command line tool থাকে। This tool is **solely made for debugging** and containerD and is **not very user-friendly**. 
+
+`ctr` দিয়ে basic container related tasks গুলো perform করা যায় 
+
+`ctr`এর better alternative হচ্ছে `nerd control tool`
+
+**CLI - nerdctl**
+
+- nerdctl provides a Docker-like CLI for containerD 
+- nerdctl supports docker compose
+- nerdctl supports newest features in containerD
+    - Encrypted container images
+    - Lazy Pulling
+    - P2P image distribution
+    - Image signing and verifying 
+    - Namespaces in Kubernetes
+
+So, nerd control tool একটি command line tool যেইটা very similar to Docker. Docker যা যা support করে তার বেশিরভাগ এইটা support করে।  
+
+> `CTR`, `CLI - nerdctl` built by containerD community for containerD
+
+Kubernetes community নিজে যেইটা বানাইছে সেইটা হল **`crictl(ক্রাই কন্ট্রোল)`**. Mainly used to interact with CRI-compitable runtime. This us mainly used foe debugging purpose
+
+আগে আমরা যেইদিকে `docker` command use করতাম, এখন সেইদিকে `crictl` command use করব 
