@@ -94,5 +94,26 @@ spec:
 kubectl apply -d pod.yml
 kubectl get pods
 kubectl describe pod nginx
+
+# Which nodes are these pods placed on?
+kubectl get pods -o wide
+
+# delete a pod
+kubectl delete pod webapp
 ```
 
+##### Questions
+
+```shell
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          11m
+newpods-q2rx4   1/1     Running            0          11m
+newpods-xh96h   1/1     Running            0          11m
+newpods-jh4g4   1/1     Running            0          11m
+webapp          1/2     ImagePullBackOff   0          4m40s
+```
+
+_What does the READY column in the output of the kubectl get pods command indicate?_
+
+Running container in POD/total container in POD

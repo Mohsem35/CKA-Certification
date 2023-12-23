@@ -80,3 +80,5 @@ To **create a deployment** using imperative command, use `kubectl create`:
 ```shell
 kubectl create deployment nginx --image=nginx
 ```
+
+
