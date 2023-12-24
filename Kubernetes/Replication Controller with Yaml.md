@@ -175,11 +175,50 @@ kubectl scale --replicas=6 replicaset myapp-replicaset
 
 ```shell
 kubectl create -f replicaset-definition.yaml
+
+# list of replicaset
 kubectl get replicaset
 
-kubectl delete replicaset myapp-replicaset  # also delets all underlying pods
+# details
+kubectl describe replicaset myapp-replicaset
+
+# edit replicaset
+# এইটা একটা temporary file, others অনেক fields দেখতে পাব 
+# এইটা দিয়ে edit করলে নতুন করে replicaset create/apply করতে হবে না 
+kubectl edit replicaset myapp-replicaset
+
+# delete replicaset
+# also delets all underlying pods
+kubectl delete replicaset myapp-replicaset  
+
 kubectl replace -f replicaset-definition.yaml
 
 # without modify the file
 kubectl scale --replicas=6 -f replicaset-definition.yaml
+```
+
+
+**Error Check করতে**
+
+configuration ফাইলে কোন কিছু change করার পরে `kubectl create` command use করতে হয় 
+
+```shell
+kubectl api-resources | grep replicaset
+kubectl explain replicaset | grep VERSION
+kubectl create -f /root/replicaset-definition-1.yaml
+```
+
+
+_Fix the original replica set `new-replica-set` to use the correct busybox image._
+
+```shell
+kubectl edit replicaset new-replica-set
+```
+modify the image name and then save the file.
+
+Delete the previous pods to get the new ones with the correct image.
+আগের pods গুলো delete না করলে new replicaset পাব না 
+
+```
+kubectl delete pod <pod-name>
 ```

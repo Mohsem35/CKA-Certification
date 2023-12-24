@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    # doesn't matter
+    tier: frontend
+    app: nginx
+
+spec:
+  selector:
+    matchLabels:
+      # same
+      app: myapp
+  replicas: 4
+  template:
+    metadata:
+      name: nginx
+      labels:
+        # same
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+
+
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: httpd-frontend
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       name: httpd-frontend
+#   template:
+#     metadata:
+#       labels:
+#         name: httpd-frontend
+#     spec:
+#       containers:
+#       - name: httpd-frontend
+#         image: httpd:2.4-alpine

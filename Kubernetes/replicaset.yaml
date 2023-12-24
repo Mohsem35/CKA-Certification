@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    # doesn't matter
+    app: myapp
+
+spec:
+  selector:
+    matchLabels:
+      # same
+      env: production
+  replicas: 3
+  template:
+    metadata:
+      name: nginx
+      labels:
+        # same
+        env: production
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+# selector and pod এর লেভেল same হতে হবে 
+# labels used for the pod and the labels used under the selector at thr top. They have to be the same
+
