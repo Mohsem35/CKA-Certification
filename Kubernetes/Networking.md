@@ -17,6 +17,10 @@ _For now its important to understand how the internal networking works in kubern
 
 আমার কাছে যদি multiple nodes নিয়ে cluster থাকে এবং প্রতিটা node এর pods গুলো যদি same IP পায় তাহলে সেইটা একটা problem
 
+
+<img width="560" alt="Screenshot 2023-12-24 at 8 42 00 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/b1b1a0db-aed8-4207-a706-b5abadaf63ad">
+
+
 When a **kubernetes cluster is SETUP**, kubernetes **does NOT automatically setup any kind of networking** to handle these issues. As a matter of fact, **kubernetes expects US to setup networking** to meet certain fundamental requirements
 
 
@@ -26,6 +30,9 @@ When a **kubernetes cluster is SETUP**, kubernetes **does NOT automatically setu
 
 Kubernetes expects US to setup a networking solution that meets these criteria.
 
+<img width="560" alt="Screenshot 2023-12-24 at 8 52 11 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/f2c278b8-e678-40ec-a57d-ce358002f8c1">
+
+
 Fortunately, we don’t have to set it up ALL on our own as there are multiple **pre-built solutions available**.
 
 Depending on the platform you are deploying your Kubernetes cluster on you may use any of these solutions
@@ -33,3 +40,6 @@ Depending on the platform you are deploying your Kubernetes cluster on you may u
 - If we were setting up a **kubernetes cluster from scratch** on your own systems, you may use any of these solutions like `Calico`, `Flannel` etc.
 - Deploying on a **Vmware environment** `NSX-T` may be a good option
 - Look at the play-with-**k8s labs** they use `WeaveNet`.
+
+<img width="560" alt="Screenshot 2023-12-24 at 9 06 09 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/04c1f3a2-a168-44e0-80f3-922e7664d751">
+
