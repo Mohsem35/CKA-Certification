@@ -1,9 +1,17 @@
 
-We will discuss about Kubernetes Services
+### Kubernetes Services
 
 Kubernetes Services **enable communication between various components within and outside of the application**. Kubernetes Services helps us connect applications together with other applications or users
 
 For example, our application has groups of PODs running various sections, such as a group for serving front-end load to users, another group running back-end processes, and a third group connecting to an external data source. **It is Services that enable connectivity between these groups of PODs**
+
+kubernetes **service** আমাদের help করে **pods গুলোকে grouping করতে** and provide us a **single interface to access the pods** in a group
+
+যদি backend pods এর জন্য কোন service create করা হয়, তাহলে সেই service সব backend pods গুলোকে grouping করবে and will provide a single interface যাতে করে other pods গুলো এই service access করতে পারে 
+
+**request forward** হবে to **one of the pods** under the service **randomly**
+
+**Microservices-based applications easily and effectively deploy করতে এই approach টা আমাদের help করে on kubernetes cluster** 
 
 Services enable the front-end application to be made available to users, it helps communication between back-end and front-end PODs, and helps in establishing connectivity to an external data source. 
 
@@ -75,7 +83,7 @@ metadata:
   name: myapp-service
 
 spec:
-  type: Nodeport
+  type: NodePort
   ports:
     - targetPort: 80
       port: 80
@@ -111,6 +119,9 @@ kubectl get services
 
 # we can now access from our browser
 curl http://192.168.1.2:30008
+
+# service url
+kubectl service myapp-service --url
 ```
 
 
