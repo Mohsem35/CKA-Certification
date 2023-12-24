@@ -64,12 +64,18 @@ kubectl get all
 
 Whenever we create a new deployment or upgrade the images in an existing deployment it triggers a Rollout. **A rollout is the process of gradually deploying or upgrading our application containers**. When you first create a deployment, it triggers a rollout. A new rollout creates a new Deployment revision. Let’s call it **revision 1**
 
+<img width="600" alt="Screenshot 2023-12-23 at 7 24 11 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/f03a6952-d439-4ede-9d42-2a0ca66c26c9">
+
+
 যখন আমি আমার deployment-configuration ফাইলে কোন কিছু change করে deploy দিব সেইটাই হচ্ছে updates
 
 
 #### Rollback
 
-updates হয়ে গেছে কিন্তু পরে চেক করে দেখলাম নতুন deployment এ ভুল এবং আমাদের আগের deployment এ ফিরে যেতে হবে। এইক্ষত্রে আমরা Rollback use করব   
+updates হয়ে গেছে কিন্তু পরে চেক করে দেখলাম নতুন deployment এ ভুল এবং আমাদের আগের deployment এ ফিরে যেতে হবে। এইক্ষত্রে আমরা Rollback use করব 
+
+<img width="600" alt="Screenshot 2023-12-23 at 7 25 33 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/a3445134-4410-4f98-a2b8-4367d7b6b663">
+
 
 In the future **when the application is upgraded** – meaning when the container version is updated to a new one – a new rollout is triggered and a new deployment revision is created named **Revision 2**. This **helps us keep track of the changes made** to our deployment and **enables us to rollback to a previous version** of deployment if necessary.
 
@@ -102,6 +108,7 @@ There are two types of deployment strategies.
 
 2. `Rolling Strategy`: We take down the older version and bring up a newer version one by one. This way the application never goes down and the upgrade is seamless. It is called **RollingUpdate**.RollingUpdate is the **default Deployment Strategy**
 
+<img width="700" alt="Screenshot 2023-12-23 at 7 20 41 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/028001a4-43fc-4388-b2d0-31486b8b4f89">
 
 
 _How exactly DO you update your deployment?_ 
