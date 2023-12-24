@@ -7,8 +7,11 @@ For example, our application has groups of PODs running various sections, such a
 
 Services enable the front-end application to be made available to users, it helps communication between back-end and front-end PODs, and helps in establishing connectivity to an external data source. 
 
+
 Thus services enable **loose coupling** between microservices in our application.
 
+
+<img width="599" alt="Screenshot 2023-12-24 at 9 39 42 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/f58f2f59-5f82-4ef1-a370-b96358a70226">
 
 কোন একটা K8s node এ ssh করে ঢুকে curl চালালে আমরা অবশ্যই response পাব, কিন্তু আমি চাচ্ছি আমার নিজের pc থেকে direct direct POD access করতে। এইক্ষেত্রে **Services** আসবে roleplay করতে 
 
@@ -82,6 +85,10 @@ spec:
     app: myapp
     type: front-end
 ```
+<img width="550" alt="Screenshot 2023-12-24 at 9 46 59 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/d831d067-9b6a-4942-b896-c5e1d4b8927a">
+
+<img width="600" alt="Screenshot 2023-12-24 at 9 55 48 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/ec610486-cd42-4a35-a34a-cc98cd485603">
+
 
 - **যদি আমি targetPort না দেই**, তবে port আর targetPort একই হবে K8s ধরে নেয় 
 - **যদি আমি NodePort না দেই**, তবে port range হবে 30000-32767 এর মধ্যে 
@@ -111,6 +118,8 @@ curl http://192.168.1.2:30008
 _Finally, lets look at what happens when the PODs are distributed across multiple nodee?_
 
 In this case we have the web application on PODs on separate nodes in the cluster. When we create a service , without us having to do ANY kind of additional configuration, kubernetes creates a service that spans across all the nodes in the cluster and maps the target port to the SAME NodePort on all the nodes in the cluster. This way you can access your application using the IP of any node in the cluster and using the same port number which in this case is 30008.
+
+<img width="650" alt="Screenshot 2023-12-24 at 10 23 48 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/84e330ba-0b72-46af-9a51-f17d49c45b22">
 
 To summarize – in ANY case weather it be a single pod in a single node, multiple pods on a single node, multiple pods on multiple nodes, the service is created exactly the same without you having to do any additional steps during the service creation.
 
