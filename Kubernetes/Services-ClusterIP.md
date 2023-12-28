@@ -1,3 +1,6 @@
+
+**ClusterIP is the default service in Kubernetes**
+
 A full stack web application typically has different kinds of PODs hosting different parts of an application. You may have a number of **PODs running a front-end web server**, another set of **PODs running a backend server**, a set of PODs running a key- value store like **Redis**, another set of PODs running a persistent database like **MySQL** etc. The web front-end servers need to connect to the backend-workers and the backend-workers need to connect to database as well as the redis services. 
 
 _Q: So what IS the right way to establish connectivity between these PODs?_
@@ -24,7 +27,7 @@ Each service gets an IP and name assigned to it inside the cluster and that is t
 
 এই service টাকেই বলা হচ্ছে **ClusterIP** 
 
-**ClusterIP is the default service in Kubernetes**
+
 
 **`service-definition.yaml`**
 
