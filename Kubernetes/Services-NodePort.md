@@ -1,6 +1,10 @@
 
 ### Kubernetes Services
 
+
+A service is only required if the application has some kind of process or database service or web service that needs to be exposed, that needs to be accessed by others 
+
+
 Kubernetes Services **enable communication between various components within and outside of the application**. Kubernetes Services helps us connect applications together with other applications or users
 
 For example, our application has groups of PODs running various sections, such as a group for serving front-end load to users, another group running back-end processes, and a third group connecting to an external data source. **It is Services that enable connectivity between these groups of PODs**
