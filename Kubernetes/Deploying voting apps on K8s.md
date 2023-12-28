@@ -1,4 +1,3 @@
-
 ### Example voting app
 
 **Goals:**
@@ -6,6 +5,8 @@
 1. Deploy Containers
 2. Enable Connectivity
 3. External Access
+   
+<img width="750" alt="Screenshot 2023-12-28 at 11 12 07 PM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/77ef7c1a-c216-42f7-8b4f-677e9514a4e1">
 
 **Steps:**
 
