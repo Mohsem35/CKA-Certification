@@ -1,5 +1,7 @@
 ### Example voting app
 
+[Voting App GitHub Link](https://github.com/kodekloudhub/example-voting-app/tree/master/k8s-specifications)
+
 **Goals:**
 
 1. Deploy Containers
@@ -34,3 +36,15 @@ result-app, voting-app **দুইটাই বাহির থেকে access 
 
 
 To summerize, we will be deploying 5 PODs in total and we have 4 services 
+
+
+```shell
+minikube service voting-service  --url
+
+minikube service result-service  --url
+```
+
+
+> _NOTE_: আমরা pod create /apply এর পরিবর্তে deployment create করব। কিন্তু service এ কোন change আসবে না। pod হোক অথবা deployment হোক, service create করতেই হবে 
+
+
