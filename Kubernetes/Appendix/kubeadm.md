@@ -1,6 +1,9 @@
-###Kubernetes Setup
+### Kubernetes Setup
 
 kubeadm tool helps us set up a multi-node cluster using kubernetes best practices.
+
+![kubeadm-stacked-color(2)](https://github.com/Mohsem35/CKA-Certification/assets/58659448/3ef6c714-079f-49ab-93b5-65652e341e69)
+
 
 #### Steps
 1. Need to have **multiple systems or VMs provisioned**
