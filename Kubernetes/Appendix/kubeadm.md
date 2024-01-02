@@ -4,6 +4,7 @@ kubeadm tool helps us set up a multi-node cluster using kubernetes best practice
 
 ![kubeadm-stacked-color(2)](https://github.com/Mohsem35/CKA-Certification/assets/58659448/3ef6c714-079f-49ab-93b5-65652e341e69)
 
+<img width="808" alt="Screenshot 2024-01-01 at 7 22 14 AM" src="https://github.com/Mohsem35/CKA-Certification/assets/58659448/3d0a12cc-f229-4e27-8590-09009c84dc29">
 
 #### Steps
 1. Need to have **multiple systems or VMs provisioned**
