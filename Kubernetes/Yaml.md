@@ -65,6 +65,8 @@ Transmission: Manual
 Price: $20000
 ```
 
+> এখানে Model হল **object** যার under এ Name, Year আছে 
+
 
 #### Case 2
 

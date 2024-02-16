@@ -1,6 +1,7 @@
 
 ### Kubernetes Services
 
+আমি একটা kubernetes cluster কে বাহির থেকে কিভাবে access করব তার জন্য use করতে হবে **`service`**
 
 A service is only required if the application has some kind of process or database service or web service that needs to be exposed, that needs to be accessed by others 
 
@@ -93,6 +94,7 @@ spec:
       port: 80
       nodePort: 30008
   # copied from pod-definition file of `labels` to identify pod
+  # কোন pod এ service পাঠাবে, তার জন্য selector লাগবে 
   selector: 
     app: myapp
     type: front-end
@@ -126,6 +128,9 @@ curl http://192.168.1.2:30008
 
 # service url
 kubectl service myapp-service --url
+
+# service গুলো pod এর সাথে bind হইছে কিনা check করতে 
+kubectl get ep
 ```
 
 

@@ -1,3 +1,14 @@
+### Deployments
+
+A Deployment provides **declarative updates for `Pods` and `ReplicaSets`**.
+
+like octopass, যার কাজ হচ্ছে অনেকগুলো pod manage করা 
+
+You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+
+
+
+
 When you upgrade your instances, you **do not want to upgrade all of them at once**. This may impact users accessing our applications, so you may want to upgrade them **one after the other**. And that kind of upgrade is known as **Rolling Updates**
 
 যদি new containers গুলোতে update করার পরে কোন unexpected error পাই, আমরা rollback করতে চাইব 
@@ -38,6 +49,16 @@ spec:
     matchLabels:
       type: front-end
 ```
+
+Things to remember here
+
+1. **`spec, metadata`** section পুরাটাই object 
+2. **`matchLabels: front-end`** মানে এখানে deployment object, শুধুমাত্র front-end লেভেলিং করা pods গুলোকে handle করবে। 
+3. ভিতরের **`spec`** এর ভিতরে থাকবে pod এর চেহারা ছবি কেমন হবে 
+4. **`template`** এর ভিতরে পুরাটাই pod er জিনিষপত্র, আর template ছাড়া যা কিছু সব কিছু হচ্ছে deployment এর 
+5. তারমানে `template` এর label এবং `selector` এর matchLabels একই হবে 
+
+
 
 ```shell
 kubectl create -f deployment-definition.yml
@@ -154,6 +175,9 @@ kuebctl delete deployment myapp-deployment
 
 # rollback
 kubectl rollout undo deployment/myapp-deployment
+
+# logs of a deployment
+kubectl logs -f <deployment_name>
 ```
 
 ### Questions

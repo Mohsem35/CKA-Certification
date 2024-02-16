@@ -56,6 +56,7 @@ Check the status of the Pods
 
 ```shell
 kubectl get pods -o wide
+kubectl get nodes -o wide
 ```
 
 ### Demo - Pods

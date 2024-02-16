@@ -1,4 +1,14 @@
+
+kubelet হচ্ছে একটা agent যে হচ্ছে আমার server এ container চলতেছে কিনা এইসব জিনিষপত্র নিয়া master এর কাছে report করবে 
+
+kubeadm দিয়ে আমরা cluster টা initiate করি 
+
+kubectl হচ্ছে dockercli এর মত একটা tool
+
+
 ### Kubernetes Setup
+
+kubeadm tool is used to bootstrap and manage **production grade** kubernetes cluster
 
 kubeadm tool helps us set up a multi-node cluster using kubernetes best practices.
 
@@ -52,13 +62,20 @@ Resources:
 
 [Installing kubeadm, kubelet and kubectl](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
+
+
+4. Initialize master server
+    - all of the required components are installed and configured on the master
+
+Resources: 
+
 [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) -> [Initializing your control-plane node](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#initializing-your-control-plane-node) 
 
 ```shell
 # run the following command just on the master node
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=172.16.6.18
 
-
+# control plane successfully initialized
 [init] Using Kubernetes version: v1.29.0
 [preflight] Running pre-flight checks
 [preflight] Pulling images required for setting up a Kubernetes cluster
@@ -135,11 +152,79 @@ kubeadm join 172.16.6.18:6443 --token jzs39q.nwcq6r957a3q9wsr \
 	--discovery-token-ca-cert-hash sha256:fca657c6266564a69c2fbdb7152068bf777aa43b95a7c498a3ecbe1e4da5c2cd
 ```
 
-4. Initialize master server
-    - all of the required components are installed and configured on the master
+```shell
+# master node
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# connect to the cluster
+kubectl get pod
+```
 5. POD network
     - kubernetes requires a special networking solution between master and worker nodes
+
+Resources:
+
+- [Installing Addons](https://kubernetes.io/docs/concepts/cluster-administration/addons/) 
+
+  - [Networking and Network Policy](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy) -> [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) -> [Installation](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-installation)
+
+```shell
+# master node
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+# get all pods across all namespaces
+kubectl get pods -A
+
+
+NAMESPACE       NAME          READY       STATUS        RESTARTS      AGE
+kube-system weave-net-nw9v2    0/2    PodInitializing       0         14s
+```
+
+More read:
+
+[Things to watch out for](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-things-to-watch-out-for) -> [Changing Configuration Options](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-changing-configuration-options)
+
+```shell
+# master node
+kubectl get ds -A
+
+# edit configuration file
+kubectl edit ds weave-net -n kube-system
+
+# we have to look for the containers
+# spec > template > spec > containers > env
+- name: IPALLOC_RANGE
+  value: 10.244.0.0/16          # according to the kubeadm init
+
+kubectl get pods -A
+
+# output
+NAMESPACE       NAME          READY       STATUS        RESTARTS      AGE
+kube-system weave-net-2ztq2    2/2        Runiing           0         16s
+```
+
+  
 6. Join master node(for worker nodes)
 
+Run the following command to worker nodes
+
+```shell
+# worker nodes
+kubeadm join 172.16.6.18:6443 --token jzs39q.nwcq6r957a3q9wsr \
+	--discovery-token-ca-cert-hash sha256:fca657c6266564a69c2fbdb7152068bf777aa43b95a7c498a3ecbe1e4da5c2cd
+```
+```shell
+# master node
+# list of nodes
+# master-node এর পাশে control-plane লিখা থাকবে  
+kubectl get nodes
+
+# verify
+kubectl run nginx --image=nginx
+kubectl get pod 
+kubectl delete pod nginx
+```
 
 [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
