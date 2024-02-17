@@ -14,6 +14,11 @@ _Contents:_
 
 ### Kubernetes Architecture
 
+
+![components-of-kubernetes](https://github.com/Mohsem35/CKA-Certification/assets/58659448/df70a1ab-e03d-445b-8227-3a0693bfa490)
+
+
+
 #### Nodes
 
 A **`node`** is a machine, physical or virtual on which Kubernetes is installed. A node is **worker machine** and that is where **containers will be launched** by K8s. It was also known as minions in the past
@@ -21,6 +26,7 @@ A **`node`** is a machine, physical or virtual on which Kubernetes is installed.
 _Q: What if the node on which your application is running fails?_
 
 So we need to have more than one nodes
+
 
 
 #### Cluster 
