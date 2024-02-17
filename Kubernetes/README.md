@@ -10,7 +10,7 @@ _Contents:_
     - [Kubectl](#kubectl)
 2. [Docker vs containerD](#docker-vs-containerd)
     - [CRI](#cri)
-
+3. [Extras](#extras)
 
 ### Kubernetes Architecture
 
@@ -172,3 +172,8 @@ So, nerd control tool একটি command line tool যেইটা very simila
 Kubernetes community নিজে যেইটা বানাইছে সেইটা হল **`crictl(ক্রাই কন্ট্রোল)`**. Mainly used to interact with CRI-compitable runtime. This us mainly used foe debugging purpose
 
 আগে আমরা যেইদিকে `docker` command use করতাম, এখন সেইদিকে `crictl` command use করব 
+
+
+### Extras
+
+If you have a docker-compose file where your **application is already containerized and working**, you may convert it to Kubernetes by using a tool called **`kompose`**
