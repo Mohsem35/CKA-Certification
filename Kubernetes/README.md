@@ -7,7 +7,7 @@ _Contents:_
     - [Master](#master)
     - [K8s Components](#k8s-components)
     - [Master vs Worker Nodes](#master-vs-worker-nodes)
-
+    - [Kubectl](#kubectl)
 2. [Docker vs containerD](#docker-vs-containerd)
     - [CRI](#cri)
 
@@ -71,37 +71,35 @@ Worker node হল সেইটা যেইটাতে containers গুলো
 
 Similary, The **Worker** nodes have the **kubelet agent** that is responsible for interacting with a master to provide health information of the worker node and carry out actions requested by the Master on the Worker nodes.
 
+#### Kubectl
+
+“kubectl” is the **CLI tool** for Kubernetes which is a secure way to **communicate with the Kube API server**. 
+
+That means I can create, list, delete and update the Kubernetes resources using “kubectl”. So in other words, we can apply HTTP methods over the Rest API against the kube-api server in a secure and easy way!
+
 **`kubectl`** tool is used to **deploy and manage applications** on a Kubernetes cluster.
 - to get cluster infromation
 - to get the status of other nodes in the cluster
 
 
-Command is used to **deploy an application on the cluster**
+Command is used to deploy an application on the cluster
+
 ```shell
 kubectl run hello-minikube
+
+# list all the nodes part of the cluster
+kubectl get nodes
+
+# view information of the cluster
+kubectl cluster-inf
+
+# version check
+kubectl version
+kubectl get nodes -o wide
 ``` 
 
-**View information of the cluster**
+kubectl is sending an HTTP request under the hood and receives an **HTTP response** which is in **JSON format**. Kubectl beautifies that response and gives us an understandable output in a different format.
 
-```shell
-kubectl cluster-inf
-```
-
-**List all the nodes** part of the cluster
-
-```shell
-kubectl get nodes
-```
-
-**Version check** 
-
-```shell
-kubectl version
-```
-
-```shell
-kubectl get nodes -o wide
-```
 
 ### Docker vs containerD
 
