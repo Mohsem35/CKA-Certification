@@ -141,6 +141,39 @@ echo "/dev/sdb1 /mnt/ext4 ext4 rw 0 0" >> /etc/fstab
 
 
 
+here is a step-by-step guide to attach and mount a new disk to a Linux server:
+
+
+
+```shell
+# 1. Identify the new disk
+sudo fdisk -l
+# Look for the new disk (e.g., /dev/sdb).
+
+# 2. Partition the new disk:
+sudo fdisk /dev/sdb
+
+# 3. Format the new partition:
+sudo mkfs.ext4 /dev/sdb1
+
+# 4. Create a mount point:
+sudo mkdir /mnt/newdisk
+
+# 5. Mount the new partition:
+sudo mount /dev/sdb1 /mnt/newdisk
+
+# 6. Verify the mount:
+df -h
+
+# 7. Make the mount permanent:
+sudo vim /etc/fstab
+
+# Add the following line to the end of the file:
+/dev/sdb1 /mnt/newdisk ext4 defaults 0 0
+
+# 8. Test the fstab entry:
+sudo mount -a
+```
 #### Questions
 
 ##### GPT Partition
